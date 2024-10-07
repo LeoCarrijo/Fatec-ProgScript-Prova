@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Prova - Berserk</title>
+</head>
+<body>
+    <div id="app">
+        <div class="rounds">
+            Round: {{round}}
+        </div>
+        <div class="hero-log">
+            {{hero.log}}
+            <br>
+            {{hero.logAux}}
+        </div>
+        <div class="game">
+            <div class="character">
+                <div class="life-bar" id="hero-life-bar">
+                    {{hero.life}}
+                </div>
+                <div v-show="hero.rage > 0" class="rage-bar" id="hero-rage-bar">{{hero.rage}}</div>
+                <div id="sprite-guts" class="sprite guts"></div>
+                <h1 class="titulo">
+                    <div class="elfPowder"><span>{{hero.elfPowder}}</span></div>
+                    {{hero.name}}
+                    <div class="defenseArmor"><span>{{hero.defenseArmor}}</span></div>
+                </h1>
+                <div class="actions">
+                    <button id="attack-button" @click="handlerClick('attack')">Atacar</button>
+                    <button v-if="!hero.defend" @click="handlerClick('defend')">Defender</button>
+                    <button v-else @click="handlerClick('stopDefending')">Parar de Defender</button>
+                    <button id="use-button" disabled @click="handlerClick('use')">Usar Pó Élfico</button>
+                    <button @click="handlerClick('flee')">Fugir</button>
+                    <button class="stand-button" @click="handlerClick('stand')">Manter Posição</button>
+                </div>
+            </div>
+            <div class="character">
+                <div class="life-bar" id="villan-life-bar">{{villan.life}}</div>
+                <div id="sprite-griffith" class="sprite griffith"></div>
+                <h1 class="titulo">
+                    <div class="elfPowder"><span>{{villan.elfPowder}}</span></div>
+                    {{villan.name}}
+                    <div class="defenseArmor"><span>{{villan.defenseArmor}}</span></div>
+                </h1>
+            </div>
+        </div>
+        <div class="villan-log">
+            {{villan.log}}
+            <br>
+            {{villan.logAux}}
+        </div>
+        <div v-show="gameover" class="ending">
+            <h1>{{endingTitle}}</h1>
+            <h2>{{endingMsg}}</h2>
+            <button @click="reset()">Recomeçar</button>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="index.js" ></script>
